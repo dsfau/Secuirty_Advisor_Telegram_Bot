@@ -1,0 +1,34 @@
+feeds:
+   wordpress:
+      name: Wordpress
+      url: https://wordpress.org/news/category/security/feed/
+      id: post-id
+      title: title
+      link: link
+      #The parameter check_updates is option the default time is 60 seconds
+      check_updates: 60 #seconds
+   drupal:
+      name: Drupal
+      url: https://www.drupal.org/security/rss.xml
+      id: id
+      title: title
+      link: link
+   joomla:
+      name: Joomla
+      url: https://developer.joomla.org/security-centre.feed?type=rss
+      id: id
+      title: title
+      link: link
+   debian:
+      name: Debian
+      url: https://www.debian.org/security/dsa
+      id: id
+      title: title
+      link: link
+path_db: ./db.sqli
+telegram:
+   api_key: <Telegram API Bot Key>
+   receivers_ids:
+      # you can add more and change Person[1,2...] for the correct name of person.
+      Person1: <chat id>
+      Person2: <chat id>
