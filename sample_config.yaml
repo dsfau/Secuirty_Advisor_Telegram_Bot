@@ -11,18 +11,21 @@ feeds:
       name: Drupal
       url: https://www.drupal.org/security/rss.xml
       id: id
+      idregex: '(\d{7})'
       title: title
       link: link
    joomla:
       name: Joomla
       url: https://developer.joomla.org/security-centre.feed?type=rss
       id: id
+      idregex: '(\d{3}-\d{8})'
       title: title
       link: link
    debian:
       name: Debian
       url: https://www.debian.org/security/dsa
       id: id
+      idregex: '(dsa-\d*)'
       title: title
       link: link
 path_db: ./db.sqli

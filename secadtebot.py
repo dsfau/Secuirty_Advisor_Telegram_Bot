@@ -14,6 +14,7 @@ import os
 import threading
 import requests
 import json
+import re
 
 
 class Output:
@@ -39,6 +40,10 @@ class Feed:
             self.frecuency = self.conf['check_updates']
         except:
             self.frecuency = 60
+        try:
+            self.regex_id = re.compile(self.conf['idregex'])
+        except:
+            self.regex_id = None
         self.name = self.conf['name']
         self.url = self.conf['url']
         self.verbose = verbose
@@ -104,10 +109,14 @@ class Feed:
     def checkUpdatesReturnNews(self):
         post = self.getLastPost()
         while True:
-            if post[self.conf['id']] not in self.reportedPost:
-                self.addReportedPost(post[self.conf['id']], post[self.conf['title']], post[self.conf['link']])
+            if self.regex_id is not None:
+                post_id = self.regex_id.findall(post[self.conf['id']])[0]
+            else:
+                post_id = post[self.conf['id']]
+            if post_id not in self.reportedPost:
+                self.addReportedPost(post_id, post[self.conf['title']], post[self.conf['link']])
                 yield post
-                time.sleep(self.frecuency)
+            time.sleep(self.frecuency)
 
 
 class TelBot():
