@@ -88,6 +88,16 @@ class Feed:
                 self.out.error("Unable parser the feed {0}".format(self.name))
 
 
+    def getAllEntries(self):
+        try:
+            feed = feedparser.parse(self.url)
+            entries = feed.entries
+            return entries
+        except:
+            if self.verbose:
+                self.out.error("Unable parser the feed {0}".format(self.name))
+
+
     def reportedPostInDb(self):
         query = "SELECT id FROM advisors WHERE name='{0}'".format(self.name)
         reported_in_db=self.dbexecute(query)
@@ -102,8 +112,8 @@ class Feed:
 
 
     def checkUpdatesReturnNews(self):
-        post = self.getLastPost()
         while True:
+            post = self.getLastPost()
             if post[self.conf['id']] not in self.reportedPost:
                 self.addReportedPost(post[self.conf['id']], post[self.conf['title']], post[self.conf['link']])
                 yield post
